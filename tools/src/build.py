@@ -7,7 +7,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 man = json.load(open(os.path.join(here, "..", "audio", "manifest.json")))
 orders = [{"id": l["id"], "v": l["voice"], "plat": l["plat"], "boisson": l["boisson"],
            "dessert": l["dessert"], "text": l["text"]} for l in man if l["kind"] == "order"]
-src = open(os.path.join(here, "src.html")).read()
+src = open(os.path.join(here, "src.html")).read().replace("/*CLASSMODE*/", open(os.path.join(here, "classmode.js")).read())
 out = src.replace("/*ORDERS*/[]", json.dumps(orders, ensure_ascii=False).replace("<", "\\u003c"))
 if not os.environ.get("BISTRO_TEST"):
     out = re.sub(r'\nif\(location\.hash==="#selftest".*?window\.__bistro=.*?;\n', "\n", out)  # drop the test hook (kept when BISTRO_TEST is set)

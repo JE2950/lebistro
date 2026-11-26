@@ -1,0 +1,138 @@
+</head>
+<body>
+<div class="awning"></div>
+<header>
+  <h1 id="home" title="Menu">Officina Scribarum</h1>
+  <div class="hud" id="hud" hidden>
+    <span class="pill"><small>Tempus</small><span id="time">3:00</span></span>
+    <span class="pill"><small>Denarii</small><span id="cash">0 d.</span></span>
+    <span class="pill"><small>Nuntii</small><span id="served">0</span></span>
+    <button class="btn ghost small" id="musicBtn" aria-pressed="true">♪ Musica</button>
+    <button class="btn ghost small" id="pauseBtn">Pausa</button>
+    <button class="btn ghost small" id="quitBtn">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+<section>
+  <!-- MENU -->
+  <div class="screen on" id="scrMenu">
+    <div class="modes">
+      <div class="mode">
+        <div class="pic" id="picClassic"></div>
+        <div class="txt"><h3>Officium</h3><p>You sit at the scribe's desk. Citizens queue up with Latin to translate, forms to choose, words to parse and sentences to unscramble. Help them before they lose patience.</p></div>
+        <div class="mode-acts"><button class="btn ghost" id="tutoClassic">🎓 Tutorial</button><button class="btn" id="goClassic">Play</button></div>
+      </div>
+      <div class="mode">
+        <div class="pic" id="picArcade"></div>
+        <div class="txt"><h3>Officina</h3><p>A top-down workshop for 1 to 4 scribes. Take a wax tablet, collect the right Latin words from the shelves, seal it and hand it to the messenger before the clock runs out.</p></div>
+        <div class="mode-acts"><button class="btn ghost" id="tutoArcade">🎓 Tutorial</button><button class="btn" id="goArcade">Play</button></div>
+      </div>
+    </div>
+    <div class="settings">
+      <div>
+        <h2>Gradus: which grammar</h2>
+        <div class="seg" id="levels">
+          <button data-l="facile" aria-pressed="true">Ch 2–22</button>
+          <button data-l="moyen" aria-pressed="false">Ch 2–46</button>
+          <button data-l="difficile" aria-pressed="false">Level 1</button>
+        </div>
+        <p class="note" id="levelNote"></p>
+      </div>
+      <div>
+        <h2>Grammatica in play</h2>
+        <div class="topics" id="topics"></div>
+      </div>
+      <div>
+        <h2>Options</h2>
+        <label class="opt"><input type="checkbox" id="optMusic" checked> Background music</label>
+        <label class="opt" style="gap:12px"><span class="note" style="flex:none">Volume</span><input type="range" id="musicVol" min="0" max="100" value="35" aria-label="Music volume" style="flex:1;accent-color:var(--red)"></label>
+        <p class="note">Sentences come from the Fuga Romana Level 1 bank (Bass chapters 2–73).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESK (solo) -->
+  <div class="screen" id="scrClassic">
+    <h2>Ad mensam: citizens waiting</h2>
+    <div class="room" id="room"></div>
+    <div class="zone task" id="task"></div>
+  </div>
+
+  <!-- ARCADE LOBBY -->
+  <div class="screen" id="scrLobby">
+    <div class="lobby">
+      <div class="card">
+        <h3>On this device</h3>
+        <p class="note">One or two scribes sharing this screen and keyboard.</p>
+        <label class="opt"><input type="text" id="nameIn" value="Scriba" maxlength="12" aria-label="Your name" style="flex:1"></label>
+        <label class="opt"><input type="checkbox" id="opt2p"> Two players on this keyboard</label>
+        <button class="btn" id="playLocal">Open the workshop</button>
+        <p class="keys">Scribe 1: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move, <kbd>Space</kbd> or <kbd>E</kbd> to take and put.<br>Scribe 2: arrow keys, <kbd>Enter</kbd>. Touch screens get a joystick.</p>
+      </div>
+      <div class="card" id="classCard" hidden>
+        <h3>Class game</h3>
+        <p class="note">The whole class plays at once. Pupils join at the Ludus join page with a code, as for a quiz.</p>
+        <button class="btn" id="classBtn">Open a class game</button>
+      </div>
+      <div class="card" id="roomCard">
+        <h3>Online</h3>
+        <p class="note" id="onlineNote">Connecting…</p>
+        <div class="row"><button class="btn" id="hostBtn" disabled>Host a game</button></div>
+        <div class="row" style="margin-top:10px">
+          <input type="text" id="codeIn" placeholder="Code" maxlength="4" aria-label="Game code" style="width:110px;text-transform:uppercase">
+          <button class="btn ghost" id="joinBtn" disabled>Join</button>
+        </div>
+        <div id="netBox" hidden style="margin-top:12px">
+          <div class="note" id="netRole"></div>
+          <div class="code" id="netCode"></div>
+          <div class="plist" id="netPlayers"></div>
+          <div class="row"><button class="btn" id="netStart" hidden>Start</button><button class="btn ghost small" id="netLeave">Leave</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS GAME (board) and PUPIL DEVICE -->
+  <div class="screen" id="scrClass"></div>
+  <div class="screen" id="scrPupil"></div>
+
+  <!-- ARCADE GAME -->
+  <div class="screen" id="scrArcade">
+    <div id="classBar" hidden></div>
+    <div class="tickets" id="tickets"></div>
+    <div class="stage" id="stage">
+      <canvas id="cv" width="960" height="576" aria-label="The workshop"></canvas>
+      <div class="touch off" id="touch">
+        <div class="joy" id="joy"><i id="knob"></i></div>
+        <button class="act" id="actBtn">Cape /<br>Pone</button>
+      </div>
+    </div>
+    <p class="note" style="margin-top:8px">Each message at the top is in English. Take a wax tablet (▭), add the Latin words from the shelves, put the tablet on a seal desk (●) until it is sealed, then hand it to the messenger (NUNTIUS). Watch out: shelves also hold wrong forms. The basket clears your hands.</p>
+  </div>
+</section>
+
+<aside class="board" id="board" aria-label="Grammar tables">
+  <h3>Tabulae</h3>
+  <div id="carte"></div>
+</aside>
+</main>
+
+<div class="coach" id="coach" hidden role="status" aria-live="polite"><div class="coach-step" id="coachStep"></div><div class="coach-txt" id="coachTxt"></div><div class="coach-warn" id="coachWarn" hidden></div><div class="row" id="coachActs"></div></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="billModal"></div>
+
+<div class="modal" id="endModal">
+  <div class="sheet">
+    <h2 id="endTitle">Officina clausa est!</h2>
+    <div class="stars" id="endStars"></div>
+    <p id="endExtra" hidden style="font-size:18px"></p>
+    <div class="stats" id="endStats"></div>
+    <h2 style="font-size:20px">Sententiae to review</h2>
+    <div class="vocab review" id="endVocab"></div>
+    <div class="row" style="margin-top:14px"><button class="btn" id="againBtn">Play again</button><button class="btn ghost" id="endMenu">Menu</button></div>
+  </div>
+</div>
+
+<script>
+{

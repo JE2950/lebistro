@@ -1,0 +1,23 @@
+/* OFFICINA SCRIBARUM: Pompeian red, ochre and wax; Cinzel inscription capitals over the bistro's base styles */
+:root{--red:#9e2a22;--red2:light-dark(#8f1d1b,#e0605a);--brass:#c99a2e;--board:#3b2a1c;--chalk:#f3e7cf}
+.awning{height:22px;background:repeating-linear-gradient(90deg,#9e2a22 0 26px,#c99a2e 26px 30px,#1c1a17 30px 52px,#c99a2e 52px 56px)}
+.awning::after{display:none}
+h1,.mode h3,.sheet h2,.win,.card h3,.card.pupil h2{font-family:Cinzel,serif;font-weight:700;letter-spacing:.02em}
+.mode .pic{background:conic-gradient(#ead9b7 25%,#b4552f 0 50%,#ead9b7 0 75%,#b4552f 0) 0 0/44px 44px}
+.room{background:conic-gradient(#ead9b7 25%,var(--card) 0 50%,#ead9b7 0 75%,var(--card) 0) 0 0/40px 40px}
+.table.active{border-color:var(--brass);box-shadow:0 6px 0 var(--brass)}
+.board{border-color:#8a5a2b}.board h3{font-family:Cinzel,serif;font-size:28px}
+.board select{width:100%;margin:6px 0 10px;background:#4a3524;color:var(--chalk);border:1px solid #8a5a2b}
+.tabwrap{overflow-x:auto}.tab{width:100%;border-collapse:collapse;font:14px/1.35 Nunito,sans-serif}
+.tab th,.tab td{padding:3px 6px;border-bottom:1px dashed #ffffff22;text-align:left;white-space:nowrap}.tab th{color:var(--brass);font-weight:800}
+.topics{display:flex;flex-wrap:wrap;gap:6px}.topics span{background:var(--card);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.task{margin-top:16px;min-height:220px}
+.tk .who{display:flex;align-items:center;gap:10px;margin-bottom:6px}.tk .face{font-size:34px}
+.ask{font-weight:900;margin:6px 0}.lat{font:700 20px/1.35 Nunito,sans-serif;color:var(--red2)}.lat.big{font-size:clamp(22px,3vw,30px)}.en{color:var(--mute);font-style:italic}
+.lat mark{background:#ffe27a;color:#1d1b1a;border-radius:4px;padding:0 4px}.blank{border-bottom:3px solid var(--red);padding:0 10px}
+.wtiles{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.wtile{background:#f3e4c1;color:#3b2a1c;font-weight:900;font-size:18px;padding:0 14px;border:2px solid #b28a4c}.wtile:disabled{opacity:.3}
+.fb h3{font:700 26px Cinzel,serif;margin:0 0 6px}.fb.ok h3{color:var(--ok)}.fb.no h3{color:var(--bad)}
+.ticket .t{font-size:15px}.ticket .slots .n{background:none;font-size:12px;color:#6b6460;align-self:center}
+.review{columns:1}.review div{margin-bottom:8px}.review b{color:var(--red2);display:block}
+.task .choices button{background:var(--card);border:2px solid var(--line);text-align:left;padding:8px 14px}
+.task .choices button:hover{border-color:var(--brass)}
