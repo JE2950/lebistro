@@ -7,6 +7,8 @@ A French restaurant game for Years 5 to 7. Pupils read or listen to orders in Fr
 - **Service classique**: one chef, up to three tables. Pupils build each dish, serve the right table, then pick the bill total in French.
 - **Mode arcade**: a top-down Overcooked-style kitchen for 1 to 4 chefs. Pupils take plates, add ingredients, cook on the stove and send dishes, drinks and desserts to the hatch. Two chefs can share one keyboard; touch screens get a joystick.
 
+Both modes have a **🎓 Tutoriel**: a guided first service that waits for the pupil at each step (Classique: 12 steps from reading the order to paying the bill; Arcade: 10 steps from moving to cooking on the stove). No clock and no lost customers.
+
 Levels: Facile (plats and drinks, English hints), Moyen (desserts added, French only), Difficile (faster, bigger orders). Mode écoute blurs the orders so pupils must listen.
 
 ## Voices
@@ -22,6 +24,15 @@ Levels: Facile (plats and drinks, English hints), Moyen (desserts added, French 
 Open `index.html` through any web server, for example GitHub Pages. The page loads clips from `audio/` by relative path, so it does not work from a double-clicked file.
 
 Online multiplayer uses the Claude artifact `room` capability and only works when the page is opened as a Claude artifact. Anywhere else, the page says so and keeps the one-device modes working.
+
+## Ludus version (playludus.co.uk/bistro)
+
+The same game also runs inside Ludus (the PlayLudus repo, `bistro/` folder), built with `python3 tools/src/build.py ludus path/to/bistro/index.html`. There it uses the Ludus Supabase connection and join system for class games:
+
+- **Brigades**: the whole class plays at once, each pupil on their own device, with teams' takings on the board.
+- **Cuisine partagée**: up to 4 chefs share one kitchen across devices.
+
+The class-game code is in `tools/src/classmode.js`, which `src.html` includes. It only switches on when the page loads the Ludus scripts.
 
 ## Editing
 

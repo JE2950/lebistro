@@ -49,7 +49,7 @@ h2{font:900 13px/1 Nunito;letter-spacing:.02em;color:var(--mute);margin:0 0 8px}
 .modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media(max-width:700px){.modes{grid-template-columns:minmax(0,1fr)}}
 .mode{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:0;overflow:hidden;text-align:left;display:flex;flex-direction:column;box-shadow:0 6px 0 var(--zinc2)}
-.mode:hover{border-color:var(--brass)}
+.mode .txt{flex:1}
 .mode .pic{height:170px;display:flex;align-items:center;justify-content:center;font-size:64px;gap:6px;background:conic-gradient(#f4f1ea 25%,#2a2522 0 50%,#f4f1ea 0 75%,#2a2522 0) 0 0/44px 44px;position:relative}
 .mode .pic span{filter:drop-shadow(0 6px 4px #0006)}
 .mode .txt{padding:16px 18px 18px}
@@ -60,6 +60,20 @@ h2{font:900 13px/1 Nunito;letter-spacing:.02em;color:var(--mute);margin:0 0 8px}
 .seg button{background:var(--card);font-weight:900}.seg button[aria-pressed=true]{background:var(--red);color:#fff}
 label.opt{display:flex;align-items:center;gap:10px;padding:4px 0}
 label.opt input{width:22px;height:22px;accent-color:var(--red);flex:none}
+.mode-acts{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 18px}
+.mode-acts .btn{flex:1}
+.coach{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:7;width:min(600px,calc(100vw - 24px));background:#fffdf5;color:#1d1b1a;border-radius:16px;padding:12px 16px 14px;box-shadow:0 10px 30px #0006;border-left:8px solid var(--brass)}
+.coach.top{top:12px;bottom:auto}
+.coach-step{font:900 12px/1.4 Nunito,sans-serif;color:#8a6d10}
+.coach-txt{font-size:16px;margin:2px 0 8px}
+.coach-warn{font-size:14px;font-weight:700;color:var(--bad);margin:-4px 0 8px}
+.coach .btn.ghost{background:#efe9dc;color:#1d1b1a;border:0}
+body.tuto main{padding-bottom:210px}
+body.tuto .toast{bottom:auto;top:96px}
+@media(min-width:1100px){.coach{left:auto;right:16px;transform:none;width:310px}body.tuto main{padding-bottom:40px}}
+.pulse{outline:4px solid var(--brass)!important;outline-offset:3px;animation:pulse .8s infinite alternate;position:relative;z-index:2}
+@keyframes pulse{to{outline-color:#ffe27a}}
+@media(prefers-reduced-motion:reduce){.pulse{animation:none}}
 /* classic */
 .room{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:12px;padding:14px;border-radius:18px;background:conic-gradient(var(--zinc) 25%,var(--card) 0 50%,var(--zinc) 0 75%,var(--card) 0) 0 0/40px 40px}
 @media(max-width:600px){.room{grid-template-columns:minmax(0,1fr)}}
@@ -115,6 +129,26 @@ label.opt input{width:22px;height:22px;accent-color:var(--red);flex:none}
 .plist i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 .keys{font-size:13px;color:var(--mute);margin-top:8px}
 kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunito}
+/* class games (Ludus) */
+.board-join{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;background:var(--board);color:var(--chalk);border-radius:18px;padding:22px 26px;margin-bottom:14px}
+.board-join .addr{font:900 clamp(22px,3vw,34px)/1.1 Nunito,sans-serif}
+.board-join .note{color:#d8d4c4}
+.code.big{font-size:clamp(56px,9vw,104px);color:#ffd23f;letter-spacing:.06em}
+.board-join .qr{width:170px;background:#fff;border-radius:12px;padding:10px}.board-join .qr svg{display:block;width:100%;height:auto}
+.board-join .qr:empty{display:none}
+.board-top{display:flex;align-items:center;gap:16px;margin-bottom:12px}.board-top .code{font-size:30px}.board-top .clock{font:900 clamp(40px,6vw,64px)/1 Nunito,sans-serif;margin-left:auto}
+.teams{display:grid;gap:10px;margin-bottom:14px}
+.team{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 14px}
+.team .tn{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.team .rank{font:900 22px Nunito;color:var(--mute);min-width:1.4em}.team .tc{color:var(--mute);font-size:14px;flex:1}.team .ts{font-size:22px;white-space:nowrap}
+.tbar{height:14px;background:var(--zinc);border-radius:9px;overflow:hidden;margin-top:6px}.tbar i{display:block;height:100%;transition:width .6s}
+.chefs{margin:6px 0 14px;padding-left:1.4em}.chefs li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dashed var(--line)}.chefs li b{white-space:nowrap}.chefs .tc{color:var(--mute);font-size:13px}
+.win{font:400 clamp(28px,4vw,40px)/1.1 "Abril Fatface",serif;color:var(--red2);margin:0 0 12px}
+fieldset.opts{border:0;padding:0;margin:0 0 12px}fieldset.opts legend{font:900 13px Nunito;color:var(--mute);margin-bottom:4px}
+label.opt select{min-height:40px;margin-left:6px}
+.plist .x{min-height:24px;padding:0 6px;margin-left:4px;background:transparent;font-weight:900;color:var(--mute);border-radius:6px}
+.team-badge{display:inline-block;border-left:6px solid var(--team);background:var(--zinc);border-radius:8px;padding:6px 12px;margin-top:10px}
+.card.pupil{max-width:560px;margin:30px auto;text-align:center}.card.pupil h2{font:400 30px/1.1 "Abril Fatface",serif;color:var(--red2);margin:0 0 10px}
+#classBar{font-weight:900;margin-bottom:8px;color:var(--red2)}
 /* overlays */
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center;z-index:9}
 .toast.on{opacity:1}
@@ -154,14 +188,16 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
   <!-- MENU -->
   <div class="screen on" id="scrMenu">
     <div class="modes">
-      <button class="mode" id="goClassic">
+      <div class="mode">
         <div class="pic"><span>🧑‍🍳</span><span>🥞</span><span>💶</span></div>
         <div class="txt"><h3>Service classique</h3><p>One chef, up to three tables. Read or listen to each order, cook from the recipe, then work out the bill in French.</p></div>
-      </button>
-      <button class="mode" id="goArcade">
+        <div class="mode-acts"><button class="btn ghost" id="tutoClassic">🎓 Tutoriel</button><button class="btn" id="goClassic">Jouer</button></div>
+      </div>
+      <div class="mode">
         <div class="pic"><span>🏃</span><span>🍳</span><span>🏃‍♀️</span></div>
         <div class="txt"><h3>Mode arcade</h3><p>A top-down kitchen for 1 to 4 chefs. Grab, cook, plate and serve against the clock, on one screen or across devices.</p></div>
-      </button>
+        <div class="mode-acts"><button class="btn ghost" id="tutoArcade">🎓 Tutoriel</button><button class="btn" id="goArcade">Jouer</button></div>
+      </div>
     </div>
     <div class="settings">
       <div>
@@ -224,7 +260,12 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
         <button class="btn" id="playLocal">Ouvrir la cuisine</button>
         <p class="keys">Chef 1: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move, <kbd>Space</kbd> or <kbd>E</kbd> to grab and drop.<br>Chef 2: arrow keys, <kbd>Enter</kbd>. Touch screens get a joystick.</p>
       </div>
-      <div class="card">
+      <div class="card" id="classCard" hidden>
+        <h3>Partie de classe</h3>
+        <p class="note">The whole class plays at once. Pupils join at the Ludus join page with a code, as for a quiz.</p>
+        <button class="btn" id="classBtn">Ouvrir une partie de classe</button>
+      </div>
+      <div class="card" id="roomCard">
         <h3>En ligne</h3>
         <p class="note" id="onlineNote">Connecting…</p>
         <div class="row"><button class="btn" id="hostBtn" disabled>Créer une partie</button></div>
@@ -242,8 +283,13 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
     </div>
   </div>
 
+  <!-- CLASS GAME (board) and PUPIL DEVICE -->
+  <div class="screen" id="scrClass"></div>
+  <div class="screen" id="scrPupil"></div>
+
   <!-- ARCADE GAME -->
   <div class="screen" id="scrArcade">
+    <div id="classBar" hidden></div>
     <div class="tickets" id="tickets"></div>
     <div class="stage" id="stage">
       <canvas id="cv" width="960" height="576" aria-label="La cuisine"></canvas>
@@ -262,6 +308,7 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
 </aside>
 </main>
 
+<div class="coach" id="coach" hidden role="status" aria-live="polite"><div class="coach-step" id="coachStep"></div><div class="coach-txt" id="coachTxt"></div><div class="coach-warn" id="coachWarn" hidden></div><div class="row" id="coachActs"></div></div>
 <div class="toast" id="toast"></div>
 
 <div class="modal" id="billModal">
@@ -280,6 +327,7 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
   <div class="sheet">
     <h2 id="endTitle">Le bistro est fermé !</h2>
     <div class="stars" id="endStars"></div>
+    <p id="endExtra" hidden style="font-size:18px"></p>
     <div class="stats" id="endStats"></div>
     <h2 style="font-size:20px">Vocabulaire du jour</h2>
     <div class="vocab" id="endVocab"></div>
@@ -291,6 +339,7 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
 {
 /* ---------------- data ---------------- */
 const $=id=>document.getElementById(id);
+const CFG=Object.assign({target:"claude",audio:"audio/",music:{menu:"music/menu.mp3",game:"music/game.mp3"}},window.BISTRO||{});
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ING={pain:["le pain","bread","🥖"],jambon:["le jambon","ham","🍖"],fromage:["le fromage","cheese","🧀"],oeufs:["les œufs","eggs","🥚"],
@@ -325,7 +374,7 @@ const SET={sound:true,listen:false,voice:"clips"};
 let ttsVoices=[];
 const clipCache={};
 function clipUrl(id){
-  if(!clipCache[id]){clipCache[id]=fetch("audio/"+id+".mp3").then(r=>{if(!r.ok)throw new Error("missing");return r.blob()}).then(b=>URL.createObjectURL(b));
+  if(!clipCache[id]){clipCache[id]=fetch(CFG.audio+id+".mp3").then(r=>{if(!r.ok)throw new Error("missing");return r.blob()}).then(b=>URL.createObjectURL(b));
     clipCache[id].catch(()=>{delete clipCache[id]})}
   return clipCache[id];
 }
@@ -337,7 +386,7 @@ try{const m=JSON.parse(localStorage.getItem("bistro-music")||"null");if(m){MUS.o
 function musicSave(){try{localStorage.setItem("bistro-music",JSON.stringify({on:MUS.on,vol:MUS.vol}))}catch(e){}}
 function track(name){
   if(!MUS.tracks[name]){const a=new Audio();a.loop=true;a.volume=0;MUS.tracks[name]=a;
-    fetch("music/"+name+".mp3").then(r=>{if(!r.ok)throw new Error("missing");return r.blob()}).then(b=>{a.src=URL.createObjectURL(b);musicApply()}).catch(()=>{})}
+    fetch(CFG.music[name]).then(r=>{if(!r.ok)throw new Error("missing");return r.blob()}).then(b=>{a.src=URL.createObjectURL(b);musicApply()}).catch(()=>{})}
   return MUS.tracks[name];
 }
 function musicApply(){
@@ -400,9 +449,10 @@ const fmt=s=>Math.floor(Math.max(0,s)/60)+":"+String(Math.floor(Math.max(0,s)%60
 
 /* ---------------- screens ---------------- */
 let mode="menu";
-function show(id){["scrMenu","scrClassic","scrLobby","scrArcade"].forEach(s=>$(s).classList.toggle("on",s===id));
-  $("hud").hidden=!(id==="scrClassic"||id==="scrArcade");$("pauseBtn").hidden=id!=="scrClassic";
-  $("board").hidden=id==="scrMenu";$("main").classList.toggle("wide",id==="scrMenu");
+function show(id){["scrMenu","scrClassic","scrLobby","scrArcade","scrClass","scrPupil"].forEach(s=>$(s).classList.toggle("on",s===id));
+  const cls=id==="scrClass";$("hud").hidden=!(id==="scrClassic"||id==="scrArcade"||cls);$("pauseBtn").hidden=id!=="scrClassic";
+  document.querySelectorAll("#hud .pill").forEach(e=>e.hidden=cls);$("soundBtn").hidden=cls;
+  $("board").hidden=id==="scrMenu"||id==="scrPupil";$("main").classList.toggle("wide",id==="scrMenu");
   setMusic(id==="scrClassic"||id==="scrArcade"?"game":"menu")}
 function renderCarte(){
   const h=LEVELS[lvl].hints;
@@ -412,7 +462,10 @@ function renderCarte(){
 $("levels").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;lvl=b.dataset.l;
   document.querySelectorAll("#levels button").forEach(x=>x.setAttribute("aria-pressed",x===b));$("levelNote").textContent=LEVELS[lvl].note;renderCarte()});
 $("levelNote").textContent=LEVELS.facile.note;
-function toMenu(){stopClassic();stopArcade();netLeave();$("endModal").classList.remove("on");$("billModal").classList.remove("on");mode="menu";show("scrMenu")}
+function toMenu(){
+  if(CL.role==="pupil"){tutoEnd();stopClassic();stopArcade();$("endModal").classList.remove("on");$("billModal").classList.remove("on");mode="pupil";show("scrPupil");return}
+  if(H)hostClose();
+  tutoEnd();stopClassic();stopArcade();netLeave();$("endModal").classList.remove("on");$("billModal").classList.remove("on");mode="menu";show("scrMenu")}
 $("home").onclick=toMenu;$("quitBtn").onclick=toMenu;$("endMenu").onclick=toMenu;
 $("goClassic").onclick=()=>{mode="classic";startClassic()};
 $("goArcade").onclick=()=>{mode="lobby";renderCarte();show("scrLobby")};
@@ -432,14 +485,14 @@ function renderTray(){
   $("tray").innerHTML=slot("plat","le plat",PLATS)+slot("boisson","la boisson",BOISSONS)+slot("dessert","le dessert",DESSERTS);
 }
 function renderRoom(){
-  const n=LEVELS[lvl].tables;$("room").style.setProperty("--n",n);
+  const n=S.tables.length;$("room").style.setProperty("--n",n);
   $("room").innerHTML=S.tables.map((c,i)=>!c?`<div class="table empty">Table ${i+1} · libre</div>`:
   `<div class="table"><div class="who"><span class="face">${c.face}</span><div><b>${c.name}</b><span>Table ${i+1}</span></div></div>
     <div class="bubble ${SET.listen&&!c.reveal?"hidden":""}"><span class="txt">${esc(c.msg||c.o.text)}</span></div>
     <div class="bar"><i data-bar="${i}" style="width:${c.pat/c.max*100}%"></i></div>
     <div class="row"><button class="btn small" data-serve="${i}">Servir</button><button class="btn ghost small" data-say="${i}">🔊 Écouter</button></div></div>`).join("");
 }
-function hud(){$("time").textContent=fmt(S.time);$("cash").textContent=S.cash+" €";$("served").textContent=S.served}
+function hud(){$("time").textContent=S.tuto?"Tutoriel":fmt(S.time);$("cash").textContent=S.cash+" €";$("served").textContent=S.served}
 function spawn(){
   const free=S.tables.map((c,i)=>c?-1:i).filter(i=>i>=0);if(!free.length)return;
   const busy=S.tables.filter(Boolean).map(c=>c.o.id);
@@ -449,6 +502,7 @@ function spawn(){
 }
 function tick(){
   if(!S||S.paused)return;
+  if(S.tuto){hud();return}
   S.time-=.25;S.spawnT-=.25;if(S.spawnT<=0){spawn();S.spawnT=LEVELS[lvl].spawn}
   S.tables.forEach((c,i)=>{if(!c)return;c.pat-=.25;const b=document.querySelector(`[data-bar="${i}"]`);
     if(b){const r=c.pat/c.max;b.style.width=Math.max(0,r*100)+"%";b.style.background=r>.5?"var(--ok)":r>.25?"var(--brass)":"var(--bad)"}
@@ -494,9 +548,13 @@ function answerBill(btn){
   $("billNext").hidden=false;$("billNext").focus();
 }
 function closeBill(){S.tables[S.bill.i]=null;S.bill=null;S.served++;S.tray={plat:null,boisson:null,dessert:null};$("billModal").classList.remove("on");S.paused=false;renderRoom();renderTray();hud()}
-function startClassic(){
-  stopArcade();clearInterval(cookIv);$("cookfill").style.width="0";$("plate").classList.remove("cooking");$("prepBtn").disabled=false;
-  S={time:180,spawnT:1,tables:Array(LEVELS[lvl].tables).fill(null),plate:[],tray:{plat:null,boisson:null,dessert:null},cash:0,served:0,left:0,wrong:0,billsRight:0,seen:new Set(),missed:new Set(),paused:false,cooking:false};
+function spawnOrder(o){
+  const [face,name]=personFor(o.v);S.tables[0]={face,name,o,pat:1,max:1};itemsOf(o).forEach(x=>S.seen.add(x.fr));renderRoom();speak([o.id],o.text);
+}
+function startClassic(opts){
+  tutoEnd();stopArcade();clearInterval(cookIv);$("cookfill").style.width="0";$("plate").classList.remove("cooking");$("prepBtn").disabled=false;
+  const tuto=!!(opts&&opts.tuto);
+  S={tuto,time:opts&&opts.seconds?opts.seconds:180,spawnT:tuto?1e9:1,tables:Array(tuto?1:LEVELS[lvl].tables).fill(null),plate:[],tray:{plat:null,boisson:null,dessert:null},cash:0,served:0,left:0,wrong:0,billsRight:0,seen:new Set(),missed:new Set(),paused:false,cooking:false};
   renderCarte();renderKitchen();renderPlate();renderTray();renderRoom();hud();show("scrClassic");$("pauseBtn").textContent="Pause";
   clearInterval(timer);timer=setInterval(tick,250);
 }
@@ -531,7 +589,8 @@ function showEnd(r){
   const v=[...r.seen].map(fr=>all.find(x=>x.fr===fr)).filter(Boolean).map(x=>`<div>${x.e} <b>${x.fr}</b>: ${x.en}</div>`);
   if(r.missed&&r.missed.size)v.push(`<div>🔢 <b>À revoir :</b> ${[...r.missed].map(n=>n+" = "+NUM[n]).join(", ")}</div>`);
   $("endVocab").innerHTML=v.join("")||"<div>Aucun client aujourd'hui.</div>";
-  $("againBtn").hidden=NET.role==="client";
+  $("againBtn").hidden=NET.role==="client"||CL.role==="pupil";$("endExtra").hidden=true;$("endTitle").textContent="Le bistro est fermé !";
+  if(CL.role==="pupil")pupilScore();
   $("endModal").classList.add("on");
 }
 
@@ -602,9 +661,9 @@ function spawnTicket(){
   const t={id:++A.tid,o:idx,face,t:L.aTime,max:L.aTime,got:{}};A.tickets.push(t);itemsOf(o).forEach(x=>A.seen.add(x.fr));pushEv("n",t.id,idx)
 }
 function step(dt){
-  A.time-=dt;
+  if(!A.tuto)A.time-=dt;
   const L=LEVELS[A.lvl],n=A.players.length;
-  A.spawnT-=dt;if(A.spawnT<=0){spawnTicket();A.spawnT=(A.tickets.length<=1?5:L.aSpawn/(1+.2*(n-1)))}
+  if(!A.tuto)A.spawnT-=dt;if(A.spawnT<=0){spawnTicket();A.spawnT=(A.tickets.length<=1?5:L.aSpawn/(1+.2*(n-1)))}
   for(const p of A.players){
     const m=Math.hypot(p.inp.x,p.inp.y),sp=4.2;
     if(m>.15){const vx=p.inp.x/Math.max(1,m)*sp,vy=p.inp.y/Math.max(1,m)*sp;
@@ -613,10 +672,10 @@ function step(dt){
   }
   for(const key in A.cook){const it=A.tiles[key];if(!it){delete A.cook[key];continue}
     if(it.t==="p"){const r=matchRecipe(it.ing);if(r&&r.cook){A.cook[key]+=dt;if(A.cook[key]>=COOK_T){it.t="d";it.id=r.id;delete it.ing}}}
-    else if(it.t==="d"){A.cook[key]+=dt;if(A.cook[key]>=BURN_T){A.tiles[key]={t:"x"};delete A.cook[key];pushEv("b",key)}}}
-  for(const t of A.tickets){t.t-=dt;if(t.t<=0){A.missed++;A.score=Math.max(0,A.score-3);pushEv("l",t.id,ORDERS[t.o].v)}}
+    else if(it.t==="d"&&!A.tuto){A.cook[key]+=dt;if(A.cook[key]>=BURN_T){A.tiles[key]={t:"x"};delete A.cook[key];pushEv("b",key)}}}
+  for(const t of A.tickets){if(A.tuto)continue;t.t-=dt;if(t.t<=0){A.missed++;A.score=Math.max(0,A.score-3);pushEv("l",t.id,ORDERS[t.o].v)}}
   A.tickets=A.tickets.filter(t=>t.t>0);
-  if(A.time<=0){A.phase="end";pushEv("e")}
+  if(!A.tuto&&A.time<=0){A.phase="end";pushEv("e")}
 }
 /* events: run on every device (host directly, clients from the state stream) */
 let lastEv=0;
@@ -630,7 +689,7 @@ function handleEv(e){
   else if(k==="b"){toast(MSG[7])}
   else if(k==="e"){setTimeout(endArcade,50)}
 }
-const myIds=()=>NET.role==="client"?[NET.me]:(A?A.players.filter(p=>p.local).map(p=>p.id):[]);
+const myIds=()=>NET.role==="client"?[NET.me]:(A?A.players.filter(p=>p.local!=null).map(p=>p.id):[]);
 
 /* ---- snapshot for the network ---- */
 function snap(){
@@ -642,7 +701,7 @@ function snap(){
 }
 /* view model used by the renderer, from A (host/local) or from a snapshot (client) */
 let VIEW=null;
-function viewFromA(){return {time:A.time,score:A.score,served:A.served,lvl:A.lvl,
+function viewFromA(){return {tuto:!!A.tuto,time:A.time,score:A.score,served:A.served,lvl:A.lvl,
   players:A.players.map(p=>({id:p.id,name:p.name,col:p.col,x:p.x,y:p.y,fx:p.fx,fy:p.fy,hold:p.hold})),
   tiles:A.tiles,cook:A.cook,tickets:A.tickets}}
 function viewFromSnap(s,prev){
@@ -691,7 +750,7 @@ function readInputs(){
 }
 
 /* ---- rendering ---- */
-const cv=$("cv"),ctx=cv.getContext("2d");
+const cv=$("cv");let ctx=cv.getContext("2d");
 let TS=64;
 function fitCanvas(){const w=cv.parentElement.clientWidth-16;const dpr=Math.min(2,window.devicePixelRatio||1);
   const extra=$("touch").classList.contains("off")?260:420;const ts=Math.max(20,Math.floor(Math.min(w/MW,Math.max(220,window.innerHeight-extra)/MH)));TS=ts;
@@ -736,6 +795,15 @@ function drawMap(V,now){
       if(it.t==="p"&&matchRecipe(it.ing)&&matchRecipe(it.ing).cook){bar(c*t+6,r*t+t-10,t-12,ck/COOK_T,"#ff9f1c");emoji("🔥",c*t+t-10,r*t+10,t*.3)}
       else if(it.t==="d"&&ck>COOK_T+3){bar(c*t+6,r*t+t-10,t-12,(ck-COOK_T)/(BURN_T-COOK_T),"#e63946");if(Math.floor(now/250)%2)emoji("⚠️",c*t+t-10,r*t+10,t*.32)}}}
 }
+function drawTargets(now){
+  const st=TUTO&&TUTO.kind==="arcade"&&TUTO.steps[TUTO.i];if(!st||!st.tiles)return;
+  const t=TS,a=.55+.45*Math.sin(now/180);
+  st.tiles.forEach(([c,r])=>{ctx.save();ctx.globalAlpha=a;ctx.strokeStyle="#ffd23f";ctx.lineWidth=Math.max(3,t*.09);rr(c*t+2,r*t+2,t-4,t-4,8);ctx.stroke();ctx.restore();
+    if(r===0||r===MH-1||c===0||c===MW-1){}else{}});
+  // arrow over the first target
+  const [c,r]=st.tiles[0],bx=c*t+t/2,by=r*t+(r<MH/2?t*1.25:-t*.25)+Math.sin(now/200)*t*.08;
+  emoji(r<MH/2?"⬆️":"⬇️",bx,by,t*.5);
+}
 function bar(x,y,w,f,col){ctx.fillStyle="#0008";rr(x,y,w,7,3);ctx.fill();ctx.fillStyle=col;rr(x+1,y+1,Math.max(0,(w-2)*Math.min(1,f)),5,2);ctx.fill()}
 function drawPlayers(V,mine){
   const t=TS;
@@ -768,8 +836,8 @@ $("tickets").addEventListener("click",e=>{const b=e.target.closest("[data-tsay]"
 function render(now,dt){
   if(!VIEW)return;
   if(NET.role==="client"){const k=Math.min(1,dt*14);VIEW.players.forEach(p=>{p.x+=(p.tx-p.x)*k;p.y+=(p.ty-p.y)*k})}
-  ctx.clearRect(0,0,cv.width,cv.height);drawMap(VIEW,now);drawPlayers(VIEW,myIds());
-  $("time").textContent=fmt(VIEW.time);$("cash").textContent=VIEW.score+" €";$("served").textContent=VIEW.served;
+  ctx.clearRect(0,0,cv.width,cv.height);drawMap(VIEW,now);drawTargets(now);drawPlayers(VIEW,myIds());
+  $("time").textContent=VIEW.tuto?"Tutoriel":fmt(VIEW.time);$("cash").textContent=VIEW.score+" €";$("served").textContent=VIEW.served;
   renderTickets(VIEW);
 }
 
@@ -783,23 +851,24 @@ function loop(now){
     A.players.forEach(p=>{if(p.local!=null){const s=INP[p.local];p.inp={x:s.x,y:s.y,a:s.a}}});
     if(NET.role==="host")netReadInputs();
     step(dt);VIEW=viewFromA();
-    if(NET.role==="host"&&now-sendT>90){sendT=now;netSend()}
+    if(NET.role==="host"&&now-sendT>(NET.kind==="sb"?160:90)){sendT=now;netSend()}
   }
   if(NET.role==="client")netSendInput(now);
   render(now,dt);
 }
 function startArcadeView(){mode="arcade";show("scrArcade");renderCarte();lastTk="";lastEv=0;fitCanvas();cancelAnimationFrame(raf);lastT=0;raf=requestAnimationFrame(loop)}
-function startLocal(){
-  NET.role=null;INP.forEach(i=>i.a=0);
-  const name=$("nameIn").value.trim()||"Chef";
+function startLocal(opts){
+  tutoEnd();NET.role=null;NET.kind=null;INP.forEach(i=>i.a=0);
+  const name=(opts&&opts.name)||$("nameIn").value.trim()||"Chef";
   const ps=[mkPlayer("L0",name,0)];ps[0].local=0;
-  if($("opt2p").checked){const p2=mkPlayer("L1","Chef 2",1);p2.local=1;ps.push(p2)}
+  if(!opts&&$("opt2p").checked){const p2=mkPlayer("L1","Chef 2",1);p2.local=1;ps.push(p2)}
   ps.forEach(p=>p.lastA=INP[p.local].a);
-  A=newArcade(ps);VIEW=viewFromA();startArcadeView();
+  A=newArcade(ps);if(opts&&opts.seconds)A.time=opts.seconds;VIEW=viewFromA();startArcadeView();
 }
-$("playLocal").onclick=startLocal;
+$("playLocal").onclick=()=>startLocal();
 function stopArcade(){cancelAnimationFrame(raf);if(A)A.phase="end";A=null;VIEW=null}
 function endArcade(){
+  if(NET.role==="host"&&NET.kind==="sb"){hostEnd();return}
   if(mode!=="arcade")return;
   const V=VIEW||{};cancelAnimationFrame(raf);
   const sc=V.score||0,seen=A?A.seen:new Set((V.tickets||[]).flatMap(t=>itemsOf(ORDERS[t.o]).map(x=>x.fr)));
@@ -807,6 +876,78 @@ function endArcade(){
   showEnd({cash:sc,rows:[["Caisse",sc+" €"],["Commandes servies",V.served||0],["Clients partis",A?A.missed:(NET.lastSnap?NET.lastSnap.ms:0)],["Chefs",(V.players||[]).length]],
     seen,missed:null,key:"arcade-"+(V.lvl||lvl),stars:sc>=90?3:sc>=50?2:sc>=15?1:0});
 }
+
+/* ================= TUTORIALS ================= */
+let TUTO=null;
+function tutoStart(kind,steps){TUTO={kind,steps,i:-1};document.body.classList.add("tuto");$("coach").hidden=false;
+  $("coach").classList.toggle("top",kind==="arcade"&&!$("touch").classList.contains("off"));tutoNext()}
+function tutoNext(){if(!TUTO)return;TUTO.i++;const st=TUTO.steps[TUTO.i];if(!st)return;if(st.enter)st.enter();
+  $("coachStep").textContent=`Tutoriel · étape ${TUTO.i+1} sur ${TUTO.steps.length}`;$("coachTxt").innerHTML=st.text;$("coachWarn").hidden=true;
+  $("coachActs").innerHTML=(st.next?`<button class="btn small" data-coach="next">${st.next}</button>`:"")+(st.acts||"")+`<button class="btn ghost small" data-coach="quit">Quitter</button>`}
+function tutoEnd(){TUTO=null;document.body.classList.remove("tuto");$("coach").hidden=true;document.querySelectorAll(".pulse").forEach(e=>e.classList.remove("pulse"))}
+setInterval(()=>{
+  if(!TUTO)return;const st=TUTO.steps[TUTO.i];if(!st)return;
+  const want=new Set(st.hl?document.querySelectorAll(st.hl):[]);
+  document.querySelectorAll(".pulse").forEach(e=>{if(!want.has(e))e.classList.remove("pulse")});want.forEach(e=>e.classList.add("pulse"));
+  const w=st.warn?st.warn():"";$("coachWarn").hidden=!w;if(w)$("coachWarn").textContent=w;
+  if(st.check&&st.check())tutoNext();
+},200);
+$("coach").addEventListener("click",e=>{const b=e.target.closest("[data-coach]");if(!b)return;const a=b.dataset.coach;
+  if(a==="next")tutoNext();else if(a==="quit")toMenu();else if(a==="play-classic"){tutoEnd();startClassic()}else if(a==="play-arcade"){tutoEnd();startLocal()}});
+const findOrder=(plat,boisson,dessert)=>ORDERS.find(o=>o.plat===plat&&(o.boisson||null)===boisson&&(o.dessert||null)===dessert);
+const extraOn=(list,need)=>list.some(i=>!need.includes(i));
+
+function classicTutorial(){
+  startClassic({tuto:true});
+  const o1=findOrder("sandwich","limonade",null),o2=findOrder("croque","jus",null);
+  const plateWarn=need=>()=>S&&extraOn(S.plate,need)?"That isn't in this recipe. Click Poubelle to clear the plate and try again.":"";
+  tutoStart("classic",[
+    {enter:()=>spawnOrder(o1),text:"Welcome to the bistro! Your first customer is at <b>table 1</b>. Read the order, or press <b>🔊 Écouter</b> to hear it again.",hl:"#room .bubble,[data-say]",next:"J'ai compris"},
+    {text:"They want <b>un sandwich au jambon</b>. Find it on <b>La Carte</b>: it needs <b>le pain</b> + <b>le jambon</b>.",hl:"#board",next:"Suivant"},
+    {text:"Click <b>le pain</b> to put it on the plate (<b>l'assiette</b>).",hl:'[data-ing="pain"]',check:()=>S.plate.includes("pain"),warn:plateWarn(["pain","jambon"])},
+    {text:"Now click <b>le jambon</b>.",hl:'[data-ing="jambon"]',check:()=>S.plate.includes("jambon"),warn:plateWarn(["pain","jambon"])},
+    {text:"Click <b>Préparer</b>. The sandwich goes onto your tray (<b>le plateau</b>).",hl:"#prepBtn",check:()=>S.tray.plat==="sandwich",warn:plateWarn(["pain","jambon"])},
+    {text:"They also want <b>une limonade</b>. Click it to put it on the tray.",hl:'[data-boisson="limonade"]',check:()=>S.tray.boisson==="limonade",
+      warn:()=>S.tray.boisson&&S.tray.boisson!=="limonade"?"Wrong drink! Click it on the tray to take it off.":""},
+    {text:"Everything is on the tray. Click <b>Servir</b> at table 1.",hl:'[data-serve="0"]',check:()=>!!S.bill},
+    {text:"Now the bill: <b>5 € + 3 € = 8 €</b>. Which button says <b>huit euros</b>?",hl:"#billChoices button",check:()=>!!(S.bill&&S.bill.done)},
+    {text:"Click <b>Continuer</b>.",hl:"#billNext",check:()=>S.served>=1},
+    {enter:()=>spawnOrder(o2),text:"New customer! <b>Un croque-monsieur</b> needs cooking: <b>le pain + le jambon + le fromage</b>, then <b>Préparer</b> 🔥. Add <b>un jus d'orange</b> as well.",
+      hl:'[data-ing="pain"],[data-ing="jambon"],[data-ing="fromage"],[data-boisson="jus"]',check:()=>S.tray.plat==="croque"&&S.tray.boisson==="jus",warn:plateWarn(["pain","jambon","fromage"])},
+    {text:"Serve table 1, then choose the total in French: <b>7 € + 3 €</b>.",hl:'[data-serve="0"],#billChoices button,#billNext',check:()=>S.served>=2},
+    {text:"<b>Bravo, chef !</b> In a real service, up to three tables order at once and customers leave if they wait too long. A wrong plate goes in the <b>Poubelle</b>. Ready?",
+      acts:'<button class="btn small" data-coach="play-classic">Commencer le service</button>'}
+  ]);
+}
+function arcadeTutorial(){
+  NET.role=null;INP.forEach(i=>i.a=0);
+  const p=mkPlayer("L0",$("nameIn").value.trim()||"Chef",0);p.local=0;p.lastA=INP[0].a;
+  A=newArcade([p]);A.tuto=true;A.spawnT=1e9;A.time=0;VIEW=viewFromA();startArcadeView();
+  const o1=findOrder("sandwich","limonade",null),o2=findOrder("omelette",null,null);
+  const add=o=>{const idx=ORDERS.indexOf(o);A.tickets.push({id:++A.tid,o:idx,face:personFor(o.v)[0],t:999,max:999,got:{}});itemsOf(o).forEach(x=>A.seen.add(x.fr));pushEv("n",A.tid,idx)};
+  const me=()=>A&&A.players[0],holds=f=>{const h=me()&&me().hold;return !!(h&&f(h))};
+  const onStove=f=>["6,6","6,7"].some(k=>A.tiles[k]&&f(A.tiles[k]));
+  let start=null;
+  tutoStart("arcade",[
+    {enter:()=>{add(o1);start={x:p.x,y:p.y}},text:"You are the chef with your name above your hat. Move with <b>W A S D</b> or the <b>arrow keys</b> (on a tablet, use the joystick).",
+      check:()=>Math.hypot(me().x-start.x,me().y-start.y)>1.2},
+    {text:"An order is at the top: <b>un sandwich au jambon et une limonade</b>. Walk to the <b>plates</b> 🍽️ and press <b>Space</b> (or <b>Prendre / Poser</b>) to pick one up.",tiles:[[6,2]],check:()=>holds(h=>h.t==="p")},
+    {text:"Take the plate to the <b>pain</b> crate and press Space to add the bread.",tiles:[[1,0]],check:()=>holds(h=>h.t==="p"&&h.ing.includes("pain")),
+      warn:()=>holds(h=>h.t==="p"&&extraOn(h.ing,["pain","jambon"]))?"Wrong ingredient! Take the plate to the bin 🗑️ and start again.":""},
+    {text:"Now add <b>le jambon</b> from the crate next to it.",tiles:[[2,0]],check:()=>holds(h=>h.t==="p"&&h.ing.includes("jambon")&&h.ing.includes("pain")),
+      warn:()=>holds(h=>h.t==="p"&&extraOn(h.ing,["pain","jambon"]))?"Wrong ingredient! Take the plate to the bin 🗑️ and start again.":""},
+    {text:"A green ✓ means the dish is finished. Take it to the <b>PASSE</b> (the gold hatch) and press Space.",tiles:[[7,0],[8,0]],check:()=>A.tickets.some(t=>t.got.plat)||A.served>=1},
+    {text:"Now the drink: grab <b>une limonade</b> from the blue crate and take it to the PASSE.",tiles:[[11,0],[7,0]],check:()=>A.served>=1},
+    {enter:()=>add(o2),text:"<b>Une omelette au fromage</b> needs cooking. Take a plate and add <b>les œufs</b> and <b>le fromage</b>.",tiles:[[6,2],[4,0],[3,0]],
+      check:()=>holds(h=>h.t==="p"&&h.ing.includes("oeufs")&&h.ing.includes("fromage"))||onStove(it=>it.t==="d"||(it.t==="p"&&it.ing.includes("oeufs")&&it.ing.includes("fromage")))},
+    {text:"Put the plate on a <b>stove</b> 🔥 (press Space) and watch the orange bar fill up.",tiles:[[6,6],[7,6]],check:()=>onStove(it=>it.t==="d")||holds(h=>h.t==="d")},
+    {text:"It's cooked! Pick it up and take it to the PASSE. In a real service, food left on the stove burns.",tiles:[[6,6],[7,6],[7,0]],check:()=>A.served>=2},
+    {text:"<b>Bravo, chef !</b> Picked up the wrong thing? The <b>bin</b> 🗑️ clears your hands. In a real service, orders keep coming and the clock is ticking. Ready?",tiles:[[6,8]],
+      acts:'<button class="btn small" data-coach="play-arcade">Commencer le service</button>'}
+  ]);
+}
+$("tutoClassic").onclick=classicTutorial;
+$("tutoArcade").onclick=arcadeTutorial;
 
 /* ================= NETWORK (room capability) ================= */
 const NET={room:null,R:null,role:null,code:"",me:null,host:null,lastSnap:null,inpSent:"",inpT:0,unsub:[]};
@@ -839,11 +980,12 @@ function syncPeers(){
   A.players.forEach((p,i)=>p.col=COLS[i%4]);
 }
 function netReadInputs(){
+  if(NET.kind==="sb"){if(!H)return;const ps=Object.values(H.pupils);A.players.forEach(pl=>{const p=ps.find(q=>q.kp===pl.id);if(p&&p.inp)pl.inp=p.inp});return}
   const peers=NET.R.peers();
   A.players.forEach(p=>{if(p.local!=null)return;const pr=peers.find(q=>q.peer===p.id);const ip=pr&&pr.presence&&pr.presence.inp;
     if(ip&&typeof ip.x==="number"&&typeof ip.y==="number"&&typeof ip.a==="number")p.inp={x:Math.max(-1,Math.min(1,ip.x)),y:Math.max(-1,Math.min(1,ip.y)),a:ip.a}})
 }
-function netSend(){if(NET.R&&A)NET.R.emit("st",snap()).catch(e=>{if(e&&e.code==="not_permitted"){toast("Only an editor of this page can host.");}})}
+function netSend(){if(NET.kind==="sb"){if(H&&H.kch&&A)clSend(H.kch,"st",snap());return}if(NET.R&&A)NET.R.emit("st",snap()).catch(e=>{if(e&&e.code==="not_permitted"){toast("Only an editor of this page can host.");}})}
 async function netJoin(){
   if(!NET.room)return;const code=$("codeIn").value.trim().toLowerCase();
   if(!/^[a-z]{4}$/.test(code)){toast("Le code a quatre lettres.");return}
@@ -865,11 +1007,14 @@ async function netJoin(){
   renderLobby();
 }
 function netSendInput(now){
+  if(NET.kind==="sb"){if(!P||!P.ch)return;const i=INP[0],q=v=>Math.round(v*2)/2,x=q(i.x),y=q(i.y),sig=x+","+y+","+i.a;
+    if(sig===P.inpSent&&now-P.inpT<2000)return;if(now-P.inpT<110)return;P.inpSent=sig;P.inpT=now;clSend(P.ch,"inp",{x,y,a:i.a});return}
   if(!NET.R)return;const i=INP[0],s=[Math.round(i.x*10)/10,Math.round(i.y*10)/10,i.a].join();
   if(s===NET.inpSent&&now-NET.inpT<1000)return;if(now-NET.inpT<45)return;
   NET.inpSent=s;NET.inpT=now;NET.R.presence({inp:{x:Math.round(i.x*10)/10,y:Math.round(i.y*10)/10,a:i.a}}).catch(()=>{});
 }
 async function netLeave(){
+  if(NET.kind==="sb"){NET.role=null;NET.kind=null}
   clearInterval(NET.lobbyIv);NET.unsub.forEach(u=>{try{u()}catch(e){}});NET.unsub=[];
   if(NET.R){try{await NET.R.leave()}catch(e){}}NET.R=null;NET.role=null;NET.host=null;NET.lastSnap=null;$("netBox").hidden=true;
 }
@@ -889,7 +1034,237 @@ $("netStart").onclick=()=>{
   A=newArcade(players);VIEW=viewFromA();startArcadeView();netSend();
 };
 
-syncMusicUI();renderCarte();show("scrMenu");
+/* ================= LUDUS CLASS GAMES (Supabase) =================
+   Only on playludus (CFG.target "ludus"). Uses the Ludus join system: pupils type the code on the
+   Ludus join page, swap keys with the board over the lobby channel, and get a private channel.
+   Brigades: every pupil runs their own kitchen on their own device and reports a score every 2 s.
+   Cuisine partagée: the board runs one kitchen for up to 4 chefs and sends it out 6 times a second. */
+const CL={on:CFG.target==="ludus"&&!!(window.supabase&&window.APP&&window.APP.configured&&window.LB&&LB.kx),sb:null,role:null};
+const BRIGADES=[["Les Croissants","#e9a23b"],["Les Baguettes","#c8102e"],["Les Escargots","#2a9d8f"],["Les Macarons","#d96aa7"],["Les Camemberts","#7b61ff"],["Les Crêpes","#1f6fb5"],["Les Éclairs","#8a5a2b"],["Les Madeleines","#16936b"]];
+const KITCHEN_CH=code=>`lmb-${code}-bistro`;
+let H=null;           // the board's class game
+let P=null;           // this pupil's link to the board
+function clClient(){if(!CL.sb)CL.sb=window.supabase.createClient(APP.supabaseUrl,APP.supabaseKey,{realtime:{params:{eventsPerSecond:40}}});return CL.sb}
+function clSub(name,handlers){
+  return new Promise(res=>{const c=clClient().channel(name,{config:{broadcast:{self:false}}});
+    Object.entries(handlers).forEach(([ev,fn])=>c.on("broadcast",{event:ev},({payload})=>fn(payload||{})));
+    let done=false;c.subscribe(st=>{if(st==="SUBSCRIBED"&&!done){done=true;res(c)}if((st==="CHANNEL_ERROR"||st==="TIMED_OUT")&&!done){done=true;res(null)}})});
+}
+const clSend=(ch,event,payload)=>ch&&ch.send({type:"broadcast",event,payload}).catch(()=>{});
+const clDrop=ch=>{try{if(ch)clClient().removeChannel(ch)}catch(e){}};
+
+/* ---------- the board ---------- */
+async function hostSetup(){
+  const {data:{session}}=await clClient().auth.getSession().catch(()=>({data:{session:null}}));
+  if(!session){$("classCard").innerHTML=`<h3>Partie de classe</h3><p>Hosting a class game needs a Ludus teacher account.</p><a class="btn" href="../teacher.html">Teacher sign-in</a><p class="note">After signing in, come back to this page.</p>`;return}
+  H={phase:"setup",kind:"brigade",game:"arcade",team:3,mins:4,pupils:{},blocked:[],code:null,kx:null,lobby:null,kch:null,endAt:0,final:null};
+  mode="class";show("scrClass");renderCarte();hostRender();
+}
+async function hostOpen(){
+  const f=$("scrClass");H.kind=f.querySelector("[name=kind]:checked").value;H.game=f.querySelector("[name=game]:checked").value;
+  H.team=+f.querySelector("#clTeam").value;H.mins=+f.querySelector("#clMins").value;
+  H.code=String(Math.floor(100000+Math.random()*900000));
+  try{H.kx=await LB.kx.newPair()}catch(e){toast("This browser can't host. Open the page with https://.");return}
+  H.lobby=await clSub(LB.lobbyChannel(H.code),{join:hostOnJoin});
+  if(!H.lobby){toast("Couldn't connect. Check the internet connection.");return}
+  H.phase="lobby";hostRender();
+}
+async function hostOnJoin(m){
+  if(!H||!LB.kx.validPub(m.pub)||!H.kx)return;
+  const reply=body=>clSend(H.lobby,"joined",{to:m.pub,hpub:H.kx.pub,game:"bistro",...body});
+  if(H.phase==="ended")return reply({ok:false,msg:"This game has finished."});
+  const chk=LB.checkName(m.name);if(!chk.ok)return reply({ok:false,msg:chk.msg});
+  if(H.blocked.includes(m.pub))return reply({ok:false,msg:"Your teacher has removed you from this game."});
+  let p=Object.values(H.pupils).find(x=>x.pub===m.pub);
+  if(!p){
+    if(Object.values(H.pupils).some(x=>x.name.toLowerCase()===chk.name.toLowerCase()))return reply({ok:false,msg:`Someone called ${chk.name} has already joined. Add your surname initial.`});
+    if(H.kind==="coop"&&Object.keys(H.pupils).length>=4)return reply({ok:false,msg:"This kitchen is full: 4 chefs already."});
+    let chan;try{chan=await LB.kx.secret(H.kx.priv,m.pub,H.code)}catch(e){return}
+    if(Object.values(H.pupils).find(x=>x.pub===m.pub))return;
+    let pid;do{pid=Math.random().toString(36).slice(2,10)}while(H.pupils[pid]);
+    p={pid,pub:m.pub,chan,name:chk.name,score:0,served:0,inp:null,team:null,kp:null,joinedAt:Date.now()};H.pupils[pid]=p;
+    if(H.phase==="play")hostLateJoin(p);
+  }
+  if(!p.ch){p.ch=await clSub(LB.pupilChannel(H.code,p.chan),{
+    hello:()=>{if(H&&H.pupils[p.pid])clSend(p.ch,"state",hostStateFor(p))},
+    inp:v=>{if(typeof v.x==="number"&&typeof v.y==="number"&&typeof v.a==="number")p.inp={x:Math.max(-1,Math.min(1,v.x)),y:Math.max(-1,Math.min(1,v.y)),a:v.a|0}},
+    score:v=>{if(H.phase!=="play"&&H.phase!=="ended")return;const c=Math.max(0,Math.min(5000,v.cash|0)),s=Math.max(0,Math.min(500,v.served|0));p.score=Math.max(p.score,c);p.served=Math.max(p.served,s)}
+  })}
+  if(!p.ch)return reply({ok:false,msg:"The game couldn't connect you. Try again."});
+  reply({ok:true,name:p.name});hostRender();
+}
+function hostStateFor(p){
+  const st={phase:H.phase==="setup"?"lobby":H.phase,kind:H.kind,game:H.game,lvl,mins:H.mins,name:p.name};
+  if(p.team!=null){const b=BRIGADES[p.team%BRIGADES.length];st.team={name:b[0],col:b[1],mates:Object.values(H.pupils).filter(q=>q.team===p.team&&q!==p).map(q=>q.name)}}
+  if(H.phase==="play"){st.left=Math.max(0,H.endAt-Date.now());st.base=p.score;st.me=p.kp}
+  if(H.phase==="ended")st.final=H.final&&H.final.byPupil[p.pid];
+  return st;
+}
+const hostTell=p=>clSend(p.ch,"state",hostStateFor(p));
+function hostAssign(){
+  const ps=LB.shuffle(Object.values(H.pupils)),size=Math.max(1,H.team),n=Math.max(1,Math.ceil(ps.length/size));
+  ps.forEach((p,i)=>p.team=i%n);
+}
+function hostLateJoin(p){
+  if(H.kind==="brigade"){const counts={};Object.values(H.pupils).forEach(q=>{if(q.team!=null)counts[q.team]=(counts[q.team]||0)+1});
+    const teams=Object.keys(counts).map(Number);let best=teams.length?teams.reduce((a,b)=>counts[a]<=counts[b]?a:b):0;
+    if(H.team===1)best=teams.length?Math.max(...teams)+1:0;p.team=best;}
+  else if(A&&A.players.length<4){const pl=mkPlayer("c"+A.players.length,p.name,A.players.length);p.kp=pl.id;A.players.push(pl)}
+}
+async function hostStart(){
+  if(!Object.keys(H.pupils).length){toast("Wait for at least one pupil to join.");return}
+  H.phase="play";H.endAt=Date.now()+H.mins*60000;
+  if(H.kind==="brigade"){hostAssign();Object.values(H.pupils).forEach(hostTell);clearInterval(H.iv);H.iv=setInterval(hostTick,1000);setMusic("game");hostRender();return}
+  // shared kitchen: the board runs it
+  H.kch=await clSub(KITCHEN_CH(H.code),{});
+  const players=Object.values(H.pupils).slice(0,4).map((p,i)=>{const pl=mkPlayer("c"+i,p.name,i);p.kp=pl.id;return pl});
+  A=newArcade(players);A.time=H.mins*60;VIEW=viewFromA();NET.role="host";NET.kind="sb";
+  Object.values(H.pupils).forEach(hostTell);startArcadeView();$("classBar").hidden=false;$("classBar").textContent=`Cuisine partagée · code ${H.code}`;
+}
+function hostTick(){if(!H||H.phase!=="play")return;if(Date.now()>=H.endAt)hostEnd();else if(mode==="class")hostRender()}
+function hostTeams(){
+  const teams={};Object.values(H.pupils).forEach(p=>{if(p.team==null)return;const t=teams[p.team]||(teams[p.team]={i:p.team,name:BRIGADES[p.team%BRIGADES.length][0],col:BRIGADES[p.team%BRIGADES.length][1],score:0,served:0,chefs:[]});
+    t.score+=p.score;t.served+=p.served;t.chefs.push(p)});
+  return Object.values(teams).sort((a,b)=>b.score-a.score);
+}
+function hostEnd(){
+  if(!H||H.phase!=="play")return;
+  clearInterval(H.iv);H.phase="ended";
+  const byPupil={};
+  if(H.kind==="brigade"){
+    const teams=hostTeams(),chefs=Object.values(H.pupils).slice().sort((a,b)=>b.score-a.score);
+    teams.forEach((t,ri)=>t.chefs.forEach(p=>{byPupil[p.pid]={teamRank:ri+1,teams:teams.length,teamScore:t.score,score:p.score,chefRank:chefs.indexOf(p)+1,chefs:chefs.length}}));
+    H.final={teams,chefs,byPupil};
+  }else{
+    const sc=A?A.score:0,sv=A?A.served:0;Object.values(H.pupils).forEach(p=>byPupil[p.pid]={score:sc,served:sv});
+    H.final={score:sc,served:sv,missed:A?A.missed:0,byPupil};
+    cancelAnimationFrame(raf);if(A){NET.kind="sb";netSend()}
+  }
+  Object.values(H.pupils).forEach(hostTell);
+  setMusic("menu");mode="class";show("scrClass");hostRender();
+}
+function hostClose(){
+  if(!H)return;clearInterval(H.iv);
+  Object.values(H.pupils).forEach(p=>{if(p.ch){clSend(p.ch,"kicked",{cancelled:true});const c=p.ch;setTimeout(()=>clDrop(c),400)}});
+  clDrop(H.lobby);clDrop(H.kch);H=null;$("classBar").hidden=true;
+}
+function hostKick(pid){const p=H.pupils[pid];if(!p)return;H.blocked.push(p.pub);if(p.ch){clSend(p.ch,"kicked",{});const c=p.ch;setTimeout(()=>clDrop(c),400)}delete H.pupils[pid];hostRender()}
+function joinLink(){try{return new URL((APP.joinUrl||APP.playUrl||"../"),location.href).href.replace(/\?.*$/,"")+"?code="+H.code+(APP.plainParam?APP.plainParam():"")}catch(e){return "../?code="+H.code}}
+function qrSvg(){if(!window.qrcode)return "";try{const q=window.qrcode(0,"M");q.addData(joinLink());q.make();return q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(e){return ""}}
+function hostRender(){
+  if(!H)return;const el=$("scrClass");const ps=Object.values(H.pupils).sort((a,b)=>a.joinedAt-b.joinedAt);
+  const chips=ps.map(p=>`<span>${esc(p.name)}${H.phase==="lobby"?` <button class="x" data-kick="${p.pid}" aria-label="Remove ${esc(p.name)}">×</button>`:""}</span>`).join("")||"<span>Nobody yet…</span>";
+  if(H.phase==="setup"){
+    el.innerHTML=`<div class="card"><h3>Partie de classe</h3>
+      <fieldset class="opts"><legend>Type de partie</legend>
+        <label class="opt"><input type="radio" name="kind" value="brigade" ${H.kind==="brigade"?"checked":""}> <span><b>Brigades</b>: the whole class. Each pupil runs a kitchen on their own device; teams add up their takings.</span></label>
+        <label class="opt"><input type="radio" name="kind" value="coop" ${H.kind==="coop"?"checked":""}> <span><b>Cuisine partagée</b>: up to 4 chefs share one kitchen across their devices, shown on the board.</span></label></fieldset>
+      <fieldset class="opts" id="clGameSet"><legend>Brigades play</legend>
+        <label class="opt"><input type="radio" name="game" value="arcade" ${H.game==="arcade"?"checked":""}> Mode arcade</label>
+        <label class="opt"><input type="radio" name="game" value="classic" ${H.game==="classic"?"checked":""}> Service classique</label></fieldset>
+      <div class="row"><label class="opt">Brigades of <select id="clTeam">${[1,2,3,4].map(n=>`<option value="${n}" ${H.team===n?"selected":""}>${n===1?"1 (everyone for themselves)":n}</option>`).join("")}</select></label>
+        <label class="opt">Length <select id="clMins">${[3,4,5,6].map(n=>`<option value="${n}" ${H.mins===n?"selected":""}>${n} min</option>`).join("")}</select></label></div>
+      <p class="note">Level: <b>${lvl}</b> (change it on the menu). Pupils join at <b>${esc(APP.joinAddress||"the Ludus join page")}</b> with the code, as for a quiz.</p>
+      <div class="row"><button class="btn" data-cl="open">Ouvrir la partie</button><button class="btn ghost" data-cl="cancel">Retour</button></div></div>`;
+    return;
+  }
+  if(H.phase==="lobby"){
+    el.innerHTML=`<div class="board-join"><div><span class="note">Go to</span><div class="addr">${esc(APP.joinAddress||"")}</div><span class="note">and type the code</span><div class="code big">${H.code}</div></div>
+      <div class="qr">${qrSvg()}</div></div>
+      <div class="card"><h3>${ps.length} chef${ps.length===1?"":"s"} ${H.kind==="coop"?"(maximum 4)":""}</h3><div class="plist">${chips}</div>
+      <p class="note">${H.kind==="brigade"?`Brigades of ${H.team}, ${H.game==="arcade"?"Mode arcade":"Service classique"}, ${H.mins} minutes.`:`One shared kitchen, ${H.mins} minutes.`} Pupils who join late are added to a brigade.</p>
+      <div class="row"><button class="btn" data-cl="start">Lancer le service</button><button class="btn ghost" data-cl="close">Annuler</button></div></div>`;
+    return;
+  }
+  if(H.phase==="play"&&H.kind==="brigade"){
+    const teams=hostTeams(),top=Math.max(1,...teams.map(t=>t.score)),chefs=ps.slice().sort((a,b)=>b.score-a.score).slice(0,5);
+    el.innerHTML=`<div class="board-top"><div class="code">${H.code}</div><div class="clock">${fmt((H.endAt-Date.now())/1000)}</div><button class="btn ghost small" data-cl="end">Terminer</button></div>
+      <div class="teams">${teams.map((t,i)=>`<div class="team"><div class="tn"><span class="rank">${i+1}</span><b>${esc(t.name)}</b><span class="tc">${t.chefs.map(p=>esc(p.name)).join(", ")}</span><b class="ts">${t.score} €</b></div>
+        <div class="tbar"><i style="width:${t.score/top*100}%;background:${t.col}"></i></div></div>`).join("")}</div>
+      <div class="card"><h3>Meilleurs chefs</h3><ol class="chefs">${chefs.map(p=>`<li><span>${esc(p.name)}</span><b>${p.score} €</b></li>`).join("")}</ol></div>`;
+    return;
+  }
+  if(H.phase==="ended"){
+    const F=H.final;
+    el.innerHTML=H.kind==="brigade"?`<div class="card"><h2 class="win">🏆 ${F.teams[0]?esc(F.teams[0].name):"—"}</h2>
+      <ol class="chefs">${F.teams.map(t=>`<li><span>${esc(t.name)} <span class="tc">${t.chefs.map(p=>esc(p.name)).join(", ")}</span></span><b>${t.score} €</b></li>`).join("")}</ol>
+      <h3>Meilleurs chefs</h3><ol class="chefs">${F.chefs.slice(0,5).map(p=>`<li><span>${esc(p.name)}</span><b>${p.score} € · ${p.served} servis</b></li>`).join("")}</ol>
+      <div class="row"><button class="btn" data-cl="again">Nouvelle partie</button><button class="btn ghost" data-cl="close">Menu</button></div></div>`
+      :`<div class="card"><h2 class="win">La cuisine a gagné ${F.score} €</h2><p>${F.served} commandes servies, ${F.missed} clients partis.</p><p class="note">Chefs: ${ps.map(p=>esc(p.name)).join(", ")}</p>
+      <div class="row"><button class="btn" data-cl="again">Nouvelle partie</button><button class="btn ghost" data-cl="close">Menu</button></div></div>`;
+  }
+}
+$("scrClass").addEventListener("click",e=>{
+  const k=e.target.closest("[data-kick]");if(k){hostKick(k.dataset.kick);return}
+  const b=e.target.closest("[data-cl]");if(!b)return;const a=b.dataset.cl;
+  if(a==="open")hostOpen();else if(a==="cancel"){H=null;mode="lobby";show("scrLobby")}
+  else if(a==="start")hostStart();else if(a==="end")hostEnd();
+  else if(a==="close"){hostClose();toMenu()}
+  else if(a==="again"){hostClose();hostSetup()}
+});
+$("scrClass").addEventListener("change",e=>{if(e.target.name==="kind"){H.kind=e.target.value;$("clGameSet").hidden=H.kind!=="brigade"}});
+
+/* ---------- a pupil's device ---------- */
+const PKEY=()=>APP.storagePrefix+".bistro";
+async function pupilBoot(){
+  let s=null;try{s=JSON.parse(localStorage.getItem(PKEY())||"null")}catch(e){}
+  CL.role="pupil";mode="pupil";show("scrPupil");
+  if(!s||!s.chan||Date.now()-s.at>3*3600e3){pupilMsg("Join a game","Go to the Ludus join page and type the code on the board.",`<a class="btn" href="../">Join a game</a>`);return}
+  P={code:s.code,chan:s.chan,name:s.name,ch:null,kch:null,st:null,playing:false,rep:null,base:0,inpSent:"",inpT:0};
+  pupilMsg("Joining…",`Game ${esc(P.code)}`);
+  P.ch=await clSub(LB.pupilChannel(P.code,P.chan),{state:pupilState,kicked:m=>pupilLeave(m.cancelled?"Your teacher closed the game.":"Your teacher has removed you from this game.")});
+  if(!P.ch){pupilMsg("Can't reach your game","Check the internet connection, then try again.",`<button class="btn" onclick="location.reload()">Try again</button>`);return}
+  const hello=()=>{if(P&&!P.st)clSend(P.ch,"hello",{})};hello();P.hi=setInterval(hello,2500);
+  setTimeout(()=>{if(P&&!P.st)pupilMsg("Can't reach your game","If the game has finished, join a new one.",`<a class="btn" href="../">Join a game</a>`)},15000);
+}
+function pupilMsg(h,t,acts){$("scrPupil").innerHTML=`<div class="card pupil"><h2>${h}</h2><p>${t}</p>${acts||""}</div>`}
+function pupilLeave(msg){
+  try{localStorage.removeItem(PKEY())}catch(e){}
+  clearInterval(P&&P.rep);clearInterval(P&&P.hi);if(P){clDrop(P.kch);clDrop(P.ch)}P=null;
+  stopClassic();stopArcade();tutoEnd();$("endModal").classList.remove("on");NET.role=null;NET.kind=null;
+  mode="pupil";show("scrPupil");pupilMsg("Merci !",esc(msg),`<a class="btn" href="../">Join another game</a>`);
+}
+function pupilScore(){if(!P)return;const cash=S?S.cash:(A&&A.players.some(p=>p.local!=null))?A.score:0,served=S?S.served:A?A.served:0;
+  clSend(P.ch,"score",{cash:P.base+cash,served})}
+function pupilState(st){
+  if(!P)return;P.st=st;if(typeof st.lvl==="string"&&LEVELS[st.lvl])lvl=st.lvl;
+  const team=st.team?`<p class="team-badge" style="--team:${esc(st.team.col)}">Brigade <b>${esc(st.team.name)}</b>${st.team.mates.length?` with ${st.team.mates.map(esc).join(", ")}`:""}</p>`:"";
+  if(st.phase==="lobby"){pupilMsg(`Tu es dans la partie, ${esc(st.name)} !`,`${st.kind==="coop"?"Cuisine partagée: you share one kitchen with up to 3 other chefs.":"Brigades: you run your own kitchen and your team adds up its takings."} Look at the board and wait for your teacher to start.`+team,
+    `<div class="row"><button class="btn ghost" data-pt="tuto">🎓 Practise with the tutorial while you wait</button></div>`);return}
+  if(st.phase==="play"&&!P.playing){
+    P.playing=true;tutoEnd();$("endModal").classList.remove("on");P.base=st.base||0;
+    if(st.kind==="brigade"){
+      const secs=Math.max(5,(st.left||0)/1000);
+      if(st.game==="classic")startClassic({seconds:secs});else startLocal({seconds:secs,name:st.name});
+      if(team)toast(`Brigade ${st.team.name} !`);
+      clearInterval(P.rep);P.rep=setInterval(pupilScore,2000);
+    }else{
+      SET.sound=false;syncSoundBtn();MUS.on=false;syncMusicUI();musicApply();
+      NET.role="client";NET.kind="sb";NET.me=st.me;VIEW=null;
+      clSub(KITCHEN_CH(P.code),{st:snapIn}).then(c=>{if(P)P.kch=c});
+      startArcadeView();toast("Tap 🔊 Son to hear the orders on this device.");
+    }
+    return;
+  }
+  if(st.phase==="ended"){
+    clearInterval(P.rep);if(st.kind==="brigade"&&P.playing)pupilScore();P.playing=false;
+    const f=st.final||{};
+    if(S&&!S.paused)endClassic();else if(A&&A.phase==="play")endArcade();
+    const line=st.kind==="brigade"&&f.teamRank?`Brigade ${esc(st.team?st.team.name:"")}: <b>${f.teamRank}${f.teamRank===1?"re":"e"}</b> sur ${f.teams} avec ${f.teamScore} €. You were chef number ${f.chefRank} of ${f.chefs}.`
+      :f.score!=null?`Your kitchen took <b>${f.score} €</b> and served ${f.served} orders.`:"";
+    if(line){$("endTitle").innerHTML=st.kind==="brigade"&&f.teamRank===1?"🏆 Ta brigade a gagné !":"Le service est terminé !";$("endExtra").innerHTML=line;$("endExtra").hidden=false;$("endModal").classList.add("on")}
+    try{localStorage.removeItem(PKEY())}catch(e){}
+  }
+}
+$("scrPupil").addEventListener("click",e=>{const b=e.target.closest("[data-pt]");if(b&&b.dataset.pt==="tuto"){P&&P.st&&P.st.game==="classic"?classicTutorial():arcadeTutorial()}});
+function snapIn(s){
+  if(!s||!Array.isArray(s.pl)||!P)return;NET.lastSnap=s;
+  VIEW=viewFromSnap(s,VIEW);(s.ev||[]).forEach(e=>{if(Array.isArray(e))handleEv(e)});
+}
+
+if(CL.on){$("roomCard").hidden=true;$("classCard").hidden=false;$("classBtn").onclick=hostSetup}
+syncMusicUI();renderCarte();
+if(CFG.target==="ludus"&&location.hash==="#play"&&CL.on)pupilBoot();else show("scrMenu");
 }
 </script>
 </body>
