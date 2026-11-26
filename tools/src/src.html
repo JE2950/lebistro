@@ -143,6 +143,7 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
     <span class="pill"><small>Caisse</small><span id="cash">0 €</span></span>
     <span class="pill"><small>Servis</small><span id="served">0</span></span>
     <button class="btn ghost small" id="soundBtn" aria-pressed="true">🔊 Son</button>
+    <button class="btn ghost small" id="musicBtn" aria-pressed="true">♪ Musique</button>
     <button class="btn ghost small" id="pauseBtn">Pause</button>
     <button class="btn ghost small" id="quitBtn">Menu</button>
   </div>
@@ -181,6 +182,8 @@ kbd{background:var(--zinc);border-radius:5px;padding:1px 6px;font:700 12px Nunit
         <h2>Options</h2>
         <label class="opt"><input type="checkbox" id="optSound" checked> Customers speak their orders</label>
         <label class="opt"><input type="checkbox" id="optListen"> Mode écoute: orders blurred, listen only</label>
+        <label class="opt"><input type="checkbox" id="optMusic" checked> Background music</label>
+        <label class="opt" style="gap:12px"><span class="note" style="flex:none">Volume</span><input type="range" id="musicVol" min="0" max="100" value="35" aria-label="Volume de la musique" style="flex:1;accent-color:var(--red)"></label>
       </div>
     </div>
   </div>
@@ -328,18 +331,50 @@ function clipUrl(id){
 }
 let playTok=0,curAudio=null;
 function stopAudio(){playTok++;if(curAudio){try{curAudio.pause()}catch(e){}curAudio=null}try{speechSynthesis.cancel()}catch(e){}}
+/* background music: menu track on menus, game track during service; ducks under the voices */
+const MUS={on:true,vol:.35,want:null,unlocked:false,duck:0,tracks:{},fade:null};
+try{const m=JSON.parse(localStorage.getItem("bistro-music")||"null");if(m){MUS.on=!!m.on;MUS.vol=Math.max(0,Math.min(1,+m.vol||0))}}catch(e){}
+function musicSave(){try{localStorage.setItem("bistro-music",JSON.stringify({on:MUS.on,vol:MUS.vol}))}catch(e){}}
+function track(name){
+  if(!MUS.tracks[name]){const a=new Audio();a.loop=true;a.volume=0;MUS.tracks[name]=a;
+    fetch("music/"+name+".mp3").then(r=>{if(!r.ok)throw new Error("missing");return r.blob()}).then(b=>{a.src=URL.createObjectURL(b);musicApply()}).catch(()=>{})}
+  return MUS.tracks[name];
+}
+function musicApply(){
+  const target=MUS.vol*(MUS.duck>0?.25:1);
+  if(MUS.want)track(MUS.want);
+  clearInterval(MUS.fade);
+  MUS.fade=setInterval(()=>{let busy=false;
+    for(const [n,a] of Object.entries(MUS.tracks)){
+      const want=MUS.on&&MUS.unlocked&&n===MUS.want&&a.src,goal=want?target:0;
+      if(want&&a.paused){const p=a.play();if(p&&p.catch)p.catch(()=>{})}
+      const v=a.volume+(goal-a.volume)*.25;a.volume=Math.abs(goal-v)<.01?goal:Math.max(0,Math.min(1,v));
+      if(a.volume!==goal)busy=true;else if(!want&&!a.paused&&goal===0)a.pause();
+    }
+    if(!busy)clearInterval(MUS.fade)},50);
+}
+function setMusic(name){if(MUS.want!==name){MUS.want=name;musicApply()}}
+function duck(on){MUS.duck=Math.max(0,MUS.duck+(on?1:-1));musicApply()}
+["pointerdown","keydown"].forEach(ev=>window.addEventListener(ev,()=>{if(!MUS.unlocked){MUS.unlocked=true;musicApply()}},{once:true,capture:true}));
+function syncMusicUI(){$("optMusic").checked=MUS.on;$("musicVol").value=Math.round(MUS.vol*100);$("musicBtn").setAttribute("aria-pressed",MUS.on);$("musicBtn").textContent=MUS.on?"♪ Musique":"♪ Coupée"}
+$("optMusic").onchange=e=>{MUS.on=e.target.checked;musicSave();syncMusicUI();musicApply()};
+$("musicVol").oninput=e=>{MUS.vol=+e.target.value/100;musicSave();musicApply()};
+$("musicBtn").onclick=()=>{MUS.on=!MUS.on;musicSave();syncMusicUI();musicApply()};
 async function speak(ids,text,force){
   if(!SET.sound&&!force)return;
   stopAudio();const tok=playTok;
-  if(SET.voice==="clips"){
-    try{for(const id of ids){const url=await clipUrl(id);if(tok!==playTok)return;
-        await new Promise(res=>{const a=new Audio(url);curAudio=a;a.onended=res;a.onerror=res;const p=a.play();if(p&&p.catch)p.catch(res)})}
-      return}catch(e){if(tok!==playTok)return}
-  }
-  tts(text);
+  duck(true);
+  try{
+    if(SET.voice==="clips"){
+      try{for(const id of ids){const url=await clipUrl(id);if(tok!==playTok)return;
+          await new Promise(res=>{const a=new Audio(url);curAudio=a;a.onended=res;a.onerror=res;const p=a.play();if(p&&p.catch)p.catch(res)})}
+        return}catch(e){if(tok!==playTok)return}
+    }
+    await tts(text);
+  }finally{setTimeout(()=>duck(false),250)}
 }
-function tts(text){if(!("speechSynthesis" in window))return;try{const u=new SpeechSynthesisUtterance(text);u.lang="fr-FR";u.rate=.9;
-  const v=ttsVoices[+String(SET.voice).replace("tts","")];if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function tts(text){return new Promise(res=>{if(!("speechSynthesis" in window))return res();try{const u=new SpeechSynthesisUtterance(text);u.lang="fr-FR";u.rate=.9;
+  const v=ttsVoices[+String(SET.voice).replace("tts","")];if(v)u.voice=v;u.onend=res;u.onerror=res;speechSynthesis.cancel();speechSynthesis.speak(u);setTimeout(res,9000)}catch(e){res()}})}
 function loadVoices(){
   try{ttsVoices=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith("fr"))}catch(e){ttsVoices=[]}
   const rank=v=>(/natural|neural|premium|enhanced|améliorée|google/i.test(v.name)?0:2)+(v.lang.replace("_","-")==="fr-FR"?0:1);
@@ -367,7 +402,8 @@ const fmt=s=>Math.floor(Math.max(0,s)/60)+":"+String(Math.floor(Math.max(0,s)%60
 let mode="menu";
 function show(id){["scrMenu","scrClassic","scrLobby","scrArcade"].forEach(s=>$(s).classList.toggle("on",s===id));
   $("hud").hidden=!(id==="scrClassic"||id==="scrArcade");$("pauseBtn").hidden=id!=="scrClassic";
-  $("board").hidden=id==="scrMenu";$("main").classList.toggle("wide",id==="scrMenu")}
+  $("board").hidden=id==="scrMenu";$("main").classList.toggle("wide",id==="scrMenu");
+  setMusic(id==="scrClassic"||id==="scrArcade"?"game":"menu")}
 function renderCarte(){
   const h=LEVELS[lvl].hints;
   const d=x=>`<div class="dish"><span>${x.e} ${x.fr}</span><span class="p">${x.p} €</span>${x.ing?`<span class="r">${x.ing.map(i=>ING[i][2]+" "+ING[i][0]).join(" + ")}${x.cook?" + 🔥 cuire":""}${h?" · "+x.en:""}</span>`:h?`<span class="r">${x.en}</span>`:""}</div>`;
@@ -487,6 +523,7 @@ $("billNext").onclick=closeBill;
 $("pauseBtn").onclick=()=>{if(!S||S.bill||S.time<=0)return;S.paused=!S.paused;$("pauseBtn").textContent=S.paused?"Reprendre":"Pause"};
 
 function showEnd(r){
+  setMusic("menu");
   let best=0;try{best=+localStorage.getItem("bistro-best-"+r.key)||0;if(r.cash>best)localStorage.setItem("bistro-best-"+r.key,r.cash)}catch(e){}
   $("endStars").textContent="★".repeat(r.stars)+"☆".repeat(3-r.stars);
   $("endStats").innerHTML=r.rows.concat([["Record",Math.max(best,r.cash)+" €"]]).map(([a,b])=>`<div>${a}<b>${b}</b></div>`).join("");
@@ -812,7 +849,7 @@ async function netJoin(){
   if(!/^[a-z]{4}$/.test(code)){toast("Le code a quatre lettres.");return}
   await netLeave();
   try{NET.R=await NET.room.join("bistro-"+code)}catch(e){toast("Impossible de rejoindre.");return}
-  NET.role="client";NET.code=code;NET.me=myPeer(NET.R);NET.host=null;
+  NET.role="client";NET.code=code;if(MUS.on){MUS.on=false;syncMusicUI();musicApply();toast("Music plays on the host's screen. Tap ♪ to hear it here too.")}NET.me=myPeer(NET.R);NET.host=null;
   const name=$("nameIn").value.trim()||"Chef";
   NET.R.presence({role:"player",name,inp:{x:0,y:0,a:INP[0].a}});
   NET.unsub.push(NET.R.onPeers(()=>{NET.me=NET.me||myPeer(NET.R);const h=NET.host&&NET.R.peers().find(p=>p.peer===NET.host);if(NET.host&&!h)toast("L'hôte a quitté la partie.")}));
@@ -852,7 +889,7 @@ $("netStart").onclick=()=>{
   A=newArcade(players);VIEW=viewFromA();startArcadeView();netSend();
 };
 
-renderCarte();show("scrMenu");
+syncMusicUI();renderCarte();show("scrMenu");
 if(location.hash==="#selftest")window.__bistro={get A(){return A},get VIEW(){return VIEW},interact,step,startLocal,INP,ORDERS,MAP,NET};
 }
 </script>

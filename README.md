@@ -13,6 +13,10 @@ Levels: Facile (plats and drinks, English hints), Moyen (desserts added, French 
 
 `audio/` holds 148 clips recorded with ElevenLabs (Chloé, Calm & Natural; Antoine, Clear French Explainer; Multilingual v2): 90 orders, the numbers 1 to 25 in euros, and four customer reactions, in both voices. If a clip fails to load, the game falls back to the browser's French voice.
 
+## Music
+
+`music/menu.mp3` (Menu Mystère) plays on the menu and lobby; `music/game.mp3` (Quiz Parisien) plays during service. Both are Jonny's own Suno instrumentals. The music fades between screens and dips while a customer speaks. Players can switch it off or change the volume in the settings or with the ♪ button. In online games, music plays on the host's screen only unless a player turns it on.
+
 ## Running it
 
 Open `index.html` through any web server, for example GitHub Pages. The page loads clips from `audio/` by relative path, so it does not work from a double-clicked file.
