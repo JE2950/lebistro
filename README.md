@@ -38,3 +38,7 @@ The class-game code is in `tools/src/classmode.js`, which `src.html` includes. I
 
 - Game code: `tools/src/src.html`. Run `python3 tools/src/build.py` to rebuild `index.html`.
 - Orders and voice script: `tools/audio/gen.py` writes `manifest.json` and the batch scripts pasted into ElevenLabs. `split.py` cuts the downloaded batches into clips at the 1.5-second pauses.
+
+## Offline file with both games
+
+`games-solo.html` holds Le Petit Bistro and Officina Scribarum in one file for single players, with voices and music inside. It needs no internet and has no online or class games. Rebuild it with `python3 tools/solo.py games-solo.html`.

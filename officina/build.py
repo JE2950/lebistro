@@ -60,6 +60,12 @@ if target == "ludus":
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <title>Officina Scribarum · Ludus</title>""", 1)
     dest = sys.argv[2]
+elif target == "solo":
+    # one offline file for single players: music inside, no online or class games
+    m = lambda f: "data:audio/mpeg;base64," + base64.b64encode(open(os.path.join(here, "..", "..", "luddite", "assets", "music", f), "rb").read()).decode()
+    out = out.replace("<title>Officina Scribarum</title>", '<script>window.OFFICINA={target:"solo",music:{menu:"%s",game:"%s"}}</script>\n<title>Officina Scribarum</title>' % (m("latin-lobby.mp3"), m("latin.mp3")), 1)
+    out = out.replace("</style>", "#roomCard,#classCard{display:none!important}</style>", 1)
+    dest = sys.argv[2] if len(sys.argv) > 2 else os.path.join(here, "officina-solo.html")
 else:
     dest = os.path.join(here, "index.html")
 open(dest, "w").write(out)
